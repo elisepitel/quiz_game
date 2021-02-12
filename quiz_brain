@@ -1,0 +1,27 @@
+class QuizBrain:
+
+    # question_list is going to be initialise when new quiz brain is create
+    def __init__(self, list):
+        self.question_number = 0
+        self.score = 0
+        self.question_list = list
+
+    def still_has_questions(self):
+        """return true if questions are left"""
+        return self.question_number < len(self.question_list)
+
+    def check_answer(self, user_answer, correct_answer):
+        """evaluate if user answer corresponds to correct answer, return score"""
+        if user_answer.lower() == correct_answer.lower():
+            self.score += 1
+            print(f'Well done 🧚! \nCorrect answer')
+        else:
+            print('This is incorrect.')
+        print(f'The correct answer was: {correct_answer}. Current score = {self.score}/{self.question_number}. \n')
+
+    def next_question(self):
+        """pull up and display next question of list of questions & call 'check_answer' QuizBrain method"""
+        current_question = self.question_list[self.question_number]
+        self.question_number += 1
+        user_response = input(f"Q.{self.question_number}: {current_question.text} (True/False): ")
+        self.check_answer(user_response, current_question.answer)
